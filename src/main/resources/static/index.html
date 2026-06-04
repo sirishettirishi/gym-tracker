@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Progress Tracker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+        
+        .navbar {
+            background: #16213e;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 { color: #e94560; font-size: 24px; }
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        .navbar nav a:hover { color: #e94560; }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .hero h2 { font-size: 48px; margin-bottom: 20px; }
+        .hero h2 span { color: #e94560; }
+        .hero p { font-size: 18px; color: #aaa; margin-bottom: 40px; }
+
+        .buttons { display: flex; justify-content: center; gap: 20px; }
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-primary { background: #e94560; color: white; }
+        .btn-secondary { background: transparent; color: white; border: 2px solid #e94560; }
+        .btn:hover { opacity: 0.8; }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 60px 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+        }
+        .card .icon { font-size: 48px; margin-bottom: 15px; }
+        .card h3 { margin-bottom: 10px; color: #e94560; }
+        .card p { color: #aaa; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>💪 GymTracker</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="workout.html">Workouts</a>
+            <a href="goals.html">Goals</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h2>Track Your <span>Fitness Journey</span></h2>
+        <p>Log workouts, set goals, and crush them every day!</p>
+        <div class="buttons">
+            <a href="workout.html" class="btn btn-primary">Log Workout</a>
+            <a href="goals.html" class="btn btn-secondary">View Goals</a>
+        </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="cards">
+        <div class="card">
+            <div class="icon">🏋️</div>
+            <h3>Log Workouts</h3>
+            <p>Track every exercise, sets, reps and duration daily.</p>
+        </div>
+        <div class="card">
+            <div class="icon">🎯</div>
+            <h3>Set Goals</h3>
+            <p>Define fitness goals and track your progress.</p>
+        </div>
+        <div class="card">
+            <div class="icon">📈</div>
+            <h3>Track Progress</h3>
+            <p>See your improvement over time and stay motivated.</p>
+        </div>
+    </div>
+
+</body>
+</html>

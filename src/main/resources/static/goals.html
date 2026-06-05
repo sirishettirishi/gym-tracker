@@ -153,13 +153,17 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <h1>💪 GymTracker</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="workout.html">Workouts</a>
-            <a href="goals.html">Goals</a>
-        </nav>
-    </div>
+    <h1>💪 GymTracker</h1>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="workout.html">Workouts</a>
+        <a href="goals.html">Goals</a>
+        <a href="#" onclick="logout()" 
+           style="background:#e94560; padding:8px 16px; border-radius:8px;">
+           Logout
+        </a>
+    </nav>
+</div>
 
     <div class="container">
         <h2>My Fitness <span>Goals</span></h2>
@@ -288,6 +292,10 @@ const USER_ID = localStorage.getItem("userId");
             document.getElementById("goalDescription").value = "";
             document.getElementById("targetDate").value = "";
         }
+        function logout() {
+        localStorage.clear();
+        window.location.href = "index.html";
+}
     </script>
 
 </body>

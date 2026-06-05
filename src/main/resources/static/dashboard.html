@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GymTracker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+
+        .navbar {
+            background: #16213e;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 { color: #e94560; font-size: 24px; }
+        .navbar div a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+        .navbar div a:hover { color: #e94560; }
+        .logout-btn {
+            background: #e94560;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 50px 20px 20px;
+        }
+        .welcome h2 { font-size: 36px; }
+        .welcome h2 span { color: #e94560; }
+        .welcome p { color: #aaa; margin-top: 10px; }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 40px 30px;
+            width: 280px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s;
+            border: 2px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #e94560;
+        }
+        .card .icon { font-size: 64px; margin-bottom: 20px; }
+        .card h3 { font-size: 22px; margin-bottom: 10px; color: #e94560; }
+        .card p { color: #aaa; font-size: 14px; }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px 40px;
+            flex-wrap: wrap;
+        }
+        .stat-box {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 20px 30px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .stat-box h3 { font-size: 36px; color: #e94560; }
+        .stat-box p { color: #aaa; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>💪 GymTracker</h1>
+        <div>
+            <a href="workout.html">Workouts</a>
+            <a href="goals.html">Goals</a>
+            <a href="#" class="logout-btn" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <!-- Welcome -->
+    <div class="welcome">
+        <h2>Welcome back, <span id="usernameDisplay">User</span>! 💪</h2>
+        <p>Ready to crush your workout today?</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-box">
+            <h3 id="totalWorkouts">0</h3>
+            <p>Total Workouts</p>
+        </div>
+        <div class="stat-box">
+            <h3 id="totalGoals">0</h3>
+            <p>Total Goals</p>
+        </div>
+        <div class="stat-box">
+            <h3 id="achievedGoals">0</h3>
+            <p>Goals Achieved ✅</p>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+        <a href="workout.html" class="card">
+            <div class="icon">🏋️</div>
+            <h3>Log Workout</h3>
+            <p>Track your exercises, sets, reps and duration</p>
+        </a>
+        <a href="goals.html" class="card">
+            <div class="icon">🎯</div>
+            <h3>My Goals</h3>
+            <p>Set new goals and track your progress</p>
+        </a>
+    </div>
+
+    <script>
+        const API = "https://gym-tracker-tels.onrender.com";
+
+        // Check if logged in
+        if (!localStorage.getItem("userId")) {
+            window.location.href = "login.html";
+        }
+
+        const USER_ID = localStorage.getItem("userId");
+        const username = localStorage.getItem("username");
+
+        // Show username
+        document.getElementById("usernameDisplay").textContent = username;
+
+        // Load stats
+        window.onload = function() {
+            // Load workout count
+            fetch(`${API}/api/workouts/${USER_ID}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("totalWorkouts").textContent = data.length;
+            });
+
+            // Load goal stats
+            fetch(`${API}/api/goals/${USER_ID}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("totalGoals").textContent = data.length;
+                document.getElementById("achievedGoals").textContent =
+                    data.filter(g => g.achieved).length;
+            });
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>

@@ -104,6 +104,13 @@
             <p>See your improvement over time and stay motivated.</p>
         </div>
     </div>
+    <script>
+        // Check if logged in
+if (!localStorage.getItem("userId")) {
+    window.location.href = "login.html";
+}
+const USER_ID = localStorage.getItem("userId");
+    </script>
 
 </body>
 </html>

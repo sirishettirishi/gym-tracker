@@ -236,7 +236,7 @@
         }
 
         const username = SessionManager.get("username") || "Athlete";
-        document.getElementById("user-name").textContent = username;
+        document.getElementById("usernameDisplay").textContent = username;
 
         function logout() {
             SessionManager.logout();

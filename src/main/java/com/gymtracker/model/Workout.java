@@ -11,6 +11,8 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String exerciseName;
+    private String muscleGroup;
+    private String exercises;
     private int sets;
     private int reps;
     private int duration;
@@ -21,6 +23,10 @@ public class Workout {
     public void setId(Long id) { this.id = id; }
     public String getExerciseName() { return exerciseName; }
     public void setExerciseName(String exerciseName) { this.exerciseName = exerciseName; }
+    public String getMuscleGroup() { return muscleGroup; }
+    public void setMuscleGroup(String muscleGroup) { this.muscleGroup = muscleGroup; }
+    public String getExercises() { return exercises; }
+    public void setExercises(String exercises) { this.exercises = exercises; }
     public int getSets() { return sets; }
     public void setSets(int sets) { this.sets = sets; }
     public int getReps() { return reps; }

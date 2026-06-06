@@ -1,101 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - GymTracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0a0b0c;
+            color: #ffffff;
+            min-height: 100vh;
+        }
 
         .navbar {
-            background: #16213e;
-            padding: 15px 30px;
+            background: rgba(10, 11, 12, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .navbar h1 { color: #e94560; font-size: 24px; }
+
+        .navbar h1 {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         .navbar div a {
-            color: white;
+            color: #94a3b8;
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 15px;
+            margin-left: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
-        .navbar div a:hover { color: #e94560; }
+
+        .navbar div a.active {
+            color: #bff000;
+        }
+
+        .navbar div a:hover {
+            color: #bff000;
+        }
+
         .logout-btn {
-            background: #e94560;
-            padding: 8px 16px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff !important;
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .welcome {
             text-align: center;
-            padding: 50px 20px 20px;
+            padding: 80px 20px 40px;
         }
-        .welcome h2 { font-size: 36px; }
-        .welcome h2 span { color: #e94560; }
-        .welcome p { color: #aaa; margin-top: 10px; }
 
-        .cards {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            padding: 40px 20px;
-            flex-wrap: wrap;
+        .welcome h2 {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
-        .card {
-            background: #16213e;
-            border-radius: 12px;
-            padding: 40px 30px;
-            width: 280px;
-            text-align: center;
-            text-decoration: none;
-            color: white;
-            transition: transform 0.2s;
-            border: 2px solid transparent;
+
+        .welcome h2 span {
+            color: #bff000;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #e94560;
+
+        .welcome p {
+            color: #94a3b8;
+            margin-top: 12px;
+            font-size: 18px;
         }
-        .card .icon { font-size: 64px; margin-bottom: 20px; }
-        .card h3 { font-size: 22px; margin-bottom: 10px; color: #e94560; }
-        .card p { color: #aaa; font-size: 14px; }
 
         .stats {
             display: flex;
             justify-content: center;
             gap: 20px;
-            padding: 0 20px 40px;
+            padding: 0 8% 60px;
             flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
         }
+
         .stat-box {
-            background: #16213e;
-            border-radius: 12px;
-            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 32px;
             text-align: center;
-            min-width: 150px;
+            min-width: 200px;
+            flex: 1;
         }
-        .stat-box h3 { font-size: 36px; color: #e94560; }
-        .stat-box p { color: #aaa; font-size: 14px; }
+
+        .stat-box h3 {
+            font-size: 40px;
+            color: #bff000;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-box p {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 0 8% 100px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 48px;
+            width: 340px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(191, 240, 0, 0.3);
+        }
+
+        .card .icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+            color: #bff000;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 15px;
+            line-height: 1.5;
+        }
     </style>
 </head>
+
 <body>
 
     <!-- Navbar -->
     <div class="navbar">
-        <h1>💪 GymTracker</h1>
+        <a href="dashboard.html" style="text-decoration: none;">
+            <h1> GymTracker</h1>
+        </a>
         <div>
-            <a href="workout.html">Workouts</a>
-            <a href="goals.html">Goals</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="workout.html">Workout</a>
+            <a href="goals.html">Goal</a>
             <a href="#" class="logout-btn" onclick="logout()">Logout</a>
         </div>
     </div>
 
     <!-- Welcome -->
     <div class="welcome">
-        <h2>Welcome back, <span id="usernameDisplay">User</span>! 💪</h2>
+        <h2>Welcome back, <span id="usernameDisplay">User</span>!</h2>
         <p>Ready to crush your workout today?</p>
     </div>
 
@@ -129,44 +228,45 @@
         </a>
     </div>
 
+    <script src="session.js"></script>
     <script>
-        const API = "https://gym-tracker-tels.onrender.com";
-
-        // Check if logged in
-        if (!localStorage.getItem("userId")) {
+        // Auth Guard
+        if (!SessionManager.isAuthenticated()) {
             window.location.href = "login.html";
         }
 
-        const USER_ID = localStorage.getItem("userId");
-        const username = localStorage.getItem("username");
-
-        // Show username
-        document.getElementById("usernameDisplay").textContent = username;
-
-        // Load stats
-        window.onload = function() {
-            // Load workout count
-            fetch(`${API}/api/workouts/${USER_ID}`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("totalWorkouts").textContent = data.length;
-            });
-
-            // Load goal stats
-            fetch(`${API}/api/goals/${USER_ID}`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("totalGoals").textContent = data.length;
-                document.getElementById("achievedGoals").textContent =
-                    data.filter(g => g.achieved).length;
-            });
-        }
+        const username = SessionManager.get("username") || "Athlete";
+        document.getElementById("user-name").textContent = username;
 
         function logout() {
-            localStorage.clear();
-            window.location.href = "index.html";
+            SessionManager.logout();
         }
-    </script>
 
+        async function fetchStats() {
+            const userId = SessionManager.get("userId");
+            try {
+                const [workoutsRes, goalsRes] = await Promise.all([
+                    fetch(`https://gym-tracker-tels.onrender.com/api/workouts/user/${userId}`),
+                    fetch(`https://gym-tracker-tels.onrender.com/api/goals/user/${userId}`)
+                ]);
+
+                if (workoutsRes.ok) {
+                    const workouts = await workoutsRes.json();
+                    document.getElementById("workout-count").textContent = workouts.length;
+                }
+
+                if (goalsRes.ok) {
+                    const goals = await goalsRes.json();
+                    const achieved = goals.filter(g => g.achieved).length;
+                    document.getElementById("goal-count").textContent = `${achieved}/${goals.length}`;
+                }
+            } catch (error) {
+                console.error("Error fetching stats:", error);
+            }
+        }
+
+        fetchStats();
+    </script>
 </body>
+
 </html>

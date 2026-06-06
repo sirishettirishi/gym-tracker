@@ -19,13 +19,24 @@ public class GoalController {
         return goalService.addGoal(goal);
     }
 
+    // Support both URL patterns
     @GetMapping("/{userId}")
     public List<Goal> getGoals(@PathVariable Long userId) {
         return goalService.getGoals(userId);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Goal> getGoalsByUser(@PathVariable Long userId) {
+        return goalService.getGoals(userId);
+    }
+
     @PutMapping("/{id}/achieve")
     public Goal markAsAchieved(@PathVariable Long id) {
+        return goalService.markAsAchieved(id);
+    }
+
+    @PutMapping("/achieved/{id}")
+    public Goal markAsAchievedAlt(@PathVariable Long id) {
         return goalService.markAsAchieved(id);
     }
 }

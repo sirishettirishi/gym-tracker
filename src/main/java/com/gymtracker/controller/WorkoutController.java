@@ -19,13 +19,25 @@ public class WorkoutController {
         return workoutService.addWorkout(workout);
     }
 
+    // Support both URL patterns
     @GetMapping("/{userId}")
     public List<Workout> getWorkouts(@PathVariable Long userId) {
         return workoutService.getWorkouts(userId);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Workout> getWorkoutsByUser(@PathVariable Long userId) {
+        return workoutService.getWorkouts(userId);
+    }
+
     @DeleteMapping("/{id}")
     public String deleteWorkout(@PathVariable Long id) {
+        workoutService.deleteWorkout(id);
+        return "Workout deleted!";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteWorkoutAlt(@PathVariable Long id) {
         workoutService.deleteWorkout(id);
         return "Workout deleted!";
     }

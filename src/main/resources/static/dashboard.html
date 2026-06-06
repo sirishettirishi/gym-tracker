@@ -229,44 +229,53 @@
     </div>
 
     <script src="session.js"></script>
-    <script>
-        // Auth Guard
-        if (!SessionManager.isAuthenticated()) {
-            window.location.href = "login.html";
-        }
+<script>
+    // Auth Guard
+    if (!SessionManager.isAuthenticated()) {
+        window.location.href = "login.html";
+    }
 
-        const username = SessionManager.get("username") || "Athlete";
-        document.getElementById("usernameDisplay").textContent = username;
+    const userId = SessionManager.get("userId");
+    const username = SessionManager.get("username") || "Athlete";
 
-        function logout() {
-            SessionManager.logout();
-        }
+    // Show username
+    document.getElementById("usernameDisplay").textContent = username;
 
-        async function fetchStats() {
-            const userId = SessionManager.get("userId");
-            try {
-                const [workoutsRes, goalsRes] = await Promise.all([
-                    fetch(`https://gym-tracker-tels.onrender.com/api/workouts/user/${userId}`),
-                    fetch(`https://gym-tracker-tels.onrender.com/api/goals/user/${userId}`)
-                ]);
+    function logout() {
+        SessionManager.logout();
+    }
 
-                if (workoutsRes.ok) {
-                    const workouts = await workoutsRes.json();
-                    document.getElementById("workout-count").textContent = workouts.length;
-                }
-
-                if (goalsRes.ok) {
-                    const goals = await goalsRes.json();
-                    const achieved = goals.filter(g => g.achieved).length;
-                    document.getElementById("goal-count").textContent = `${achieved}/${goals.length}`;
-                }
-            } catch (error) {
-                console.error("Error fetching stats:", error);
+    // Load stats
+    window.onload = async function() {
+        try {
+            // Load workouts
+            const workoutsRes = await fetch(
+                `https://gym-tracker-tels.onrender.com/api/workouts/${userId}`
+            );
+            if (workoutsRes.ok) {
+                const workouts = await workoutsRes.json();
+                document.getElementById("totalWorkouts").textContent = workouts.length;
             }
+        } catch (error) {
+            console.error("Workouts error:", error);
         }
 
-        fetchStats();
-    </script>
+        try {
+            // Load goals
+            const goalsRes = await fetch(
+                `https://gym-tracker-tels.onrender.com/api/goals/${userId}`
+            );
+            if (goalsRes.ok) {
+                const goals = await goalsRes.json();
+                const achieved = goals.filter(g => g.achieved).length;
+                document.getElementById("totalGoals").textContent = goals.length;
+                document.getElementById("achievedGoals").textContent = achieved;
+            }
+        } catch (error) {
+            console.error("Goals error:", error);
+        }
+    }
+</script>
 </body>
 
 </html>

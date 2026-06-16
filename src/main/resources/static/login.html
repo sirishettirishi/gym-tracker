@@ -205,11 +205,17 @@
                    if (data.success) {
     sessionStorage.setItem("userId", data.userId);
     sessionStorage.setItem("username", data.username);
-                        showSuccess("Login successful! Redirecting...");
-                        setTimeout(() => {
-                            window.location.href = "dashboard.html";
-                        }, 1000);
-                    } else {
+    showSuccess("Login successful! Redirecting...");
+    
+    // Fade out before redirect
+    setTimeout(() => {
+        document.body.style.transition = "opacity 0.5s ease";
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 500);
+    }, 800);
+}else {
                         showError(data.message);
                     }
                 })

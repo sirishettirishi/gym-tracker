@@ -173,9 +173,10 @@
         const API = "https://gym-tracker-tels.onrender.com/api/users";
 
         // If already logged in → redirect
-        if (SessionManager.get("userId")) {
-            window.location.href = "dashboard.html";
-        }
+        if (sessionStorage.getItem("userId")) {
+    window.location.href = "dashboard.html";
+}
+        
 
         function login() {
             const username = document.getElementById("username").value;
@@ -195,7 +196,7 @@
                 .then(data => {
                    if (data.success) {
     sessionStorage.setItem("userId", data.userId);
-sessionStorage.setItem("username", data.username);
+    sessionStorage.setItem("username", data.username);
                         showSuccess("Login successful! Redirecting...");
                         setTimeout(() => {
                             window.location.href = "dashboard.html";

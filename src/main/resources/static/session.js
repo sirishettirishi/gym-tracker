@@ -1,23 +1,22 @@
 const SessionManager = {
     set(name, value) {
-        localStorage.setItem(name, value);
+        sessionStorage.setItem(name, value);
     },
 
     get(name) {
-        return localStorage.getItem(name);
+        return sessionStorage.getItem(name);
     },
 
     erase(name) {
-        localStorage.removeItem(name);
+        sessionStorage.removeItem(name);
     },
 
     isAuthenticated() {
-        return localStorage.getItem("userId") !== null;
+        return sessionStorage.getItem("userId") !== null;
     },
 
     logout() {
-        localStorage.removeItem("userId");
-        localStorage.removeItem("username");
+        sessionStorage.clear();
         window.location.href = "index.html";
     }
 };

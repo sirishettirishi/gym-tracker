@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - GymTracker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Outfit', sans-serif;
             background: #0a0b0c;
@@ -23,37 +15,32 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            animation: fadeIn 0.5s ease;
         }
-
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         .container {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             padding: 50px 40px;
             border-radius: 32px;
             width: 440px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-
         .logo {
             text-align: center;
             font-size: 40px;
             margin-bottom: 24px;
         }
-
         h2 {
             text-align: center;
             margin-bottom: 32px;
             font-weight: 700;
-            letter-spacing: -1px;
             font-size: 28px;
         }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
+        .form-group { margin-bottom: 24px; }
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -61,7 +48,6 @@
             font-size: 14px;
             font-weight: 500;
         }
-
         .form-group input {
             width: 100%;
             padding: 14px 18px;
@@ -73,13 +59,11 @@
             font-family: inherit;
             transition: all 0.3s ease;
         }
-
         .form-group input:focus {
             outline: none;
             border-color: #bff000;
             background: rgba(191, 240, 0, 0.05);
         }
-
         .btn {
             width: 100%;
             padding: 16px;
@@ -95,31 +79,22 @@
             margin-bottom: 20px;
             transition: all 0.3s ease;
         }
-
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(191, 240, 0, 0.2);
         }
-
         .link {
             text-align: center;
             color: #64748b;
             font-size: 14px;
         }
-
         .link a {
             color: #bff000;
             text-decoration: none;
             font-weight: 600;
             margin-left: 5px;
         }
-
-        .link a:hover {
-            text-decoration: underline;
-        }
-
-        .error-msg,
-        .success-msg {
+        .error-msg, .success-msg {
             padding: 12px;
             border-radius: 12px;
             text-align: center;
@@ -128,13 +103,11 @@
             font-weight: 500;
             display: none;
         }
-
         .error-msg {
             background: rgba(239, 68, 68, 0.1);
             color: #f87171;
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
-
         .success-msg {
             background: rgba(34, 197, 94, 0.1);
             color: #4ade80;
@@ -142,19 +115,12 @@
         }
     </style>
 </head>
-
 <body>
-    <form onsubmit="return false;">
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" id="username">
-    </div>
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="password">
-    </div>
-    <button class="btn" onclick="login()">Login</button>
-</form>
+    <div class="container">
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none;">💪</a>
+        </div>
+        <h2>Login to GymTracker</h2>
 
         <div class="error-msg" id="errorMsg"></div>
         <div class="success-msg" id="successMsg"></div>
@@ -182,9 +148,8 @@
 
         // If already logged in → redirect
         if (sessionStorage.getItem("userId")) {
-    window.location.href = "dashboard.html";
-}
-        
+            window.location.href = "dashboard.html";
+        }
 
         function login() {
             const username = document.getElementById("username").value;
@@ -200,26 +165,24 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
             })
-                .then(res => res.json())
-                .then(data => {
-                   if (data.success) {
-    sessionStorage.setItem("userId", data.userId);
-    sessionStorage.setItem("username", data.username);
-    showSuccess("Login successful! Redirecting...");
-    
-    // Fade out before redirect
-    setTimeout(() => {
-        document.body.style.transition = "opacity 0.5s ease";
-        document.body.style.opacity = "0";
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 500);
-    }, 800);
-}else {
-                        showError(data.message);
-                    }
-                })
-                .catch(err => showError("Server error! Try again."));
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.setItem("userId", data.userId);
+                    sessionStorage.setItem("username", data.username);
+                    showSuccess("Login successful! Redirecting...");
+                    setTimeout(() => {
+                        document.body.style.transition = "opacity 0.5s ease";
+                        document.body.style.opacity = "0";
+                        setTimeout(() => {
+                            window.location.href = "dashboard.html";
+                        }, 500);
+                    }, 800);
+                } else {
+                    showError(data.message);
+                }
+            })
+            .catch(err => showError("Server error! Try again."));
         }
 
         function showError(msg) {
@@ -236,5 +199,4 @@
         }
     </script>
 </body>
-
 </html>
